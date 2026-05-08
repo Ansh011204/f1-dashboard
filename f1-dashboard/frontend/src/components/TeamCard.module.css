@@ -1,0 +1,182 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 24px 24px 32px;
+  overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+  gap: 0;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--team-color);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.card:hover .glow {
+  opacity: 1;
+}
+
+.card:hover .wikiHint {
+  color: var(--team-color);
+}
+
+.spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 4px;
+  background: var(--team-color);
+}
+
+.glow {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at top left, rgba(var(--team-color), 0.06) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.abbr {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--team-color);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badgeActive {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #4CAF50;
+  background: rgba(76, 175, 80, 0.12);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 2px;
+  padding: 3px 7px;
+  text-transform: uppercase;
+}
+
+.badgeInactive {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--white-dimmer);
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 3px 7px;
+  text-transform: uppercase;
+}
+
+.badgeChamp {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 2px;
+  padding: 3px 7px;
+  text-transform: uppercase;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.base {
+  font-size: 12px;
+  color: var(--white-dim);
+  margin-bottom: 16px;
+}
+
+.drivers {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.driverPill {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--white-dim);
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.specLabel {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--white-dimmer);
+  text-transform: uppercase;
+}
+
+.specValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--white);
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.wikiHint {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--white-dimmer);
+  text-transform: uppercase;
+  transition: color var(--transition);
+}

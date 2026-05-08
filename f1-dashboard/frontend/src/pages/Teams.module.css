@@ -1,0 +1,80 @@
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 32px 64px;
+}
+
+.standingsBar {
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+}
+
+.standingsLabel {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--white-dimmer);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.standingsList {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.standingItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 12px;
+}
+
+.standingPos {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--white-dimmer);
+  letter-spacing: 1px;
+}
+
+.standingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.standingName {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+
+.standingPts {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white-dim);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .page { padding: 32px 16px 48px; }
+  .grid { grid-template-columns: 1fr; }
+}
