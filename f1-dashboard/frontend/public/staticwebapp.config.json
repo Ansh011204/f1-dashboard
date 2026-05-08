@@ -1,9 +1,18 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/*.css", "/*.js"]
+    "exclude": ["/assets/*", "/*.css", "/*.js", "/*.jsx"]
   },
   "mimeTypes": {
-    ".json": "text/json"
+    ".js": "text/javascript",
+    ".jsx": "text/javascript",
+    ".mjs": "text/javascript",
+    ".css": "text/css",
+    ".json": "application/json",
+    ".png": "image/png",
+    ".svg": "image/svg+xml"
+  },
+  "globalHeaders": {
+    "content-type": "text/javascript"
   }
 }
