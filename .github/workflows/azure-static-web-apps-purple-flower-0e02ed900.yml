@@ -18,19 +18,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: true
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-
       - name: Install and Build
         run: |
-           cd f1-dashboard/frontend
+          cd f1-dashboard/frontend
           npm install --legacy-peer-deps
           npm run build
-          ls -la dist/
-          
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
