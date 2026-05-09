@@ -1,18 +1,22 @@
 from fastapi import APIRouter
-from app.services.cache_service import get_cached
+import httpx
 
 router = APIRouter()
 
 @router.get("/")
 async def get_teams():
-    cached = await get_cached("teams:all")
-    if cached:
-        return cached
-    return {"message": "No team data yet — run precompute.py"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            "https://api.jolpi.ca/ergast/f1/current/constructors.json"
+        )
+        data = r.json()
+        return data["MRData"]["ConstructorTable"]["Constructors"]
 
 @router.get("/{team_id}")
 async def get_team(team_id: str):
-    cached = await get_cached(f"teams:{team_id}")
-    if cached:
-        return cached
-    return {"message": f"No data for team {team_id}"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            f"https://api.jolpi.ca/ergast/f1/current/constructors/{team_id}.json"
+        )
+        data = r.json()
+        return data["MRData"]["ConstructorTable"]["Constructors"]
