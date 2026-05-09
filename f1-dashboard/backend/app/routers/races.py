@@ -7,7 +7,7 @@ router = APIRouter()
 async def get_latest_race():
     async with httpx.AsyncClient() as client:
         r = await client.get(
-            "https://ergast.com/api/f1/current/last/results.json"
+            "https://api.jolpi.ca/ergast/f1/current/last/results.json"
         )
         data = r.json()
         race = data["MRData"]["RaceTable"]["Races"][0]
@@ -17,7 +17,7 @@ async def get_latest_race():
 async def get_next_race():
     async with httpx.AsyncClient() as client:
         r = await client.get(
-            "https://ergast.com/api/f1/current/next.json"
+            "https://api.jolpi.ca/ergast/f1/current/next.json"
         )
         data = r.json()
         race = data["MRData"]["RaceTable"]["Races"][0]
@@ -27,7 +27,7 @@ async def get_next_race():
 async def get_race_results(round: int):
     async with httpx.AsyncClient() as client:
         r = await client.get(
-            f"https://ergast.com/api/f1/current/{round}/results.json"
+            f"https://api.jolpi.ca/ergast/f1/current/{round}/results.json"
         )
         data = r.json()
         return data["MRData"]["RaceTable"]["Races"]
