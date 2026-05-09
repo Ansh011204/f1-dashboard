@@ -1,18 +1,22 @@
 from fastapi import APIRouter
-from app.services.cache_service import get_cached
+import httpx
 
 router = APIRouter()
 
 @router.get("/")
 async def get_drivers():
-    cached = await get_cached("drivers:all")
-    if cached:
-        return cached
-    return {"message": "No driver data yet — run precompute.py"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            "https://ergast.com/api/f1/current/drivers.json?limit=30"
+        )
+        data = r.json()
+        return data["MRData"]["DriverTable"]["Drivers"]
 
 @router.get("/{driver_id}")
 async def get_driver(driver_id: str):
-    cached = await get_cached(f"drivers:{driver_id}")
-    if cached:
-        return cached
-    return {"message": f"No data for driver {driver_id}"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            f"https://ergast.com/api/f1/current/drivers/{driver_id}.json"
+        )
+        data = r.json()
+        return data["MRData"]["DriverTable"]["Drivers"]
