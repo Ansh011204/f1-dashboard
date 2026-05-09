@@ -22,11 +22,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - name: Install and Build
-        run: |
-          cd f1-dashboard/frontend
-          npm install --legacy-peer-deps
-          npm run build
+      - name: Install dependencies
+        working-directory: f1-dashboard/frontend
+        run: npm install --legacy-peer-deps
+      - name: Build
+        working-directory: f1-dashboard/frontend
+        run: node node_modules/vite/bin/vite.js build
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
