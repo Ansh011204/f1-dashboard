@@ -7,7 +7,7 @@ router = APIRouter()
 async def get_drivers():
     async with httpx.AsyncClient() as client:
         r = await client.get(
-            "https://ergast.com/api/f1/current/drivers.json?limit=30"
+            "https://api.jolpi.ca/ergast/f1/current/drivers.json?limit=30"
         )
         data = r.json()
         return data["MRData"]["DriverTable"]["Drivers"]
@@ -16,7 +16,7 @@ async def get_drivers():
 async def get_driver(driver_id: str):
     async with httpx.AsyncClient() as client:
         r = await client.get(
-            f"https://ergast.com/api/f1/current/drivers/{driver_id}.json"
+            f"https://api.jolpi.ca/ergast/f1/current/drivers/{driver_id}.json"
         )
         data = r.json()
         return data["MRData"]["DriverTable"]["Drivers"]
