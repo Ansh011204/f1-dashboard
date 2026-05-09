@@ -1,25 +1,33 @@
 from fastapi import APIRouter
-from app.services.cache_service import get_cached
+import httpx
 
 router = APIRouter()
 
 @router.get("/latest")
 async def get_latest_race():
-    cached = await get_cached("races:latest")
-    if cached:
-        return cached
-    return {"message": "No race data yet — run precompute.py after a race weekend"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            "https://ergast.com/api/f1/current/last/results.json"
+        )
+        data = r.json()
+        race = data["MRData"]["RaceTable"]["Races"][0]
+        return race
 
 @router.get("/next")
 async def get_next_race():
-    cached = await get_cached("races:next")
-    if cached:
-        return cached
-    return {"message": "No upcoming race data cached"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            "https://ergast.com/api/f1/current/next.json"
+        )
+        data = r.json()
+        race = data["MRData"]["RaceTable"]["Races"][0]
+        return race
 
 @router.get("/{round}/results")
 async def get_race_results(round: int):
-    cached = await get_cached(f"races:{round}:results")
-    if cached:
-        return cached
-    return {"message": f"No data for round {round}"}
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            f"https://ergast.com/api/f1/current/{round}/results.json"
+        )
+        data = r.json()
+        return data["MRData"]["RaceTable"]["Races"]
