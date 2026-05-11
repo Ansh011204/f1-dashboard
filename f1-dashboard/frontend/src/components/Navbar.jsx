@@ -39,7 +39,7 @@ export default function Navbar() {
         {/* Season badge */}
         <div className={styles.season}>
           <span className={styles.seasonDot} />
-          <span>2024 SEASON</span>
+          <span>2026 SEASON</span>
         </div>
       </div>
     </nav>
