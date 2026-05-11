@@ -32,11 +32,11 @@ export function useTracks() {
 }
 
 export function useLatestRace() {
-  return { data: LATEST_RACE, loading: false, error: null }
+  return useFetch(`${BASE_URL}/api/races/latest`, LATEST_RACE)
 }
 
 export function useNextRace() {
-  return { data: NEXT_RACE, loading: false, error: null }
+  return useFetch(`${BASE_URL}/api/races/next`, NEXT_RACE)
 }
 
 export function useStandingsHistory() {
