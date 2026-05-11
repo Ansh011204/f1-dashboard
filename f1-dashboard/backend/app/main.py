@@ -15,7 +15,6 @@ app.add_middleware(
         "https://purple-flower-0e02ed900.7.azurestaticapps.net",
         "http://localhost:5173"
     ],
-
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
