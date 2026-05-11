@@ -20,7 +20,7 @@ function useFetch(url, fallback) {
 }
 
 export function useDrivers() {
-  return { data: DRIVERS, loading: false, error: null }
+  return useFetch(`${BASE_URL}/api/drivers/`, DRIVERS)
 }
 
 export function useTeams() {
