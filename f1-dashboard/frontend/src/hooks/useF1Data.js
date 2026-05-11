@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
 import { DRIVERS } from '../data/drivers'
-import { TEAMS } from '../data/teams'
 import { TRACKS } from '../data/tracks'
-import { LATEST_RACE, NEXT_RACE, SEASON_STANDINGS_HISTORY, PREDICTION_NEXT_RACE, CONSTRUCTOR_POINTS } from '../data/races'
+import { LATEST_RACE, NEXT_RACE, SEASON_STANDINGS_HISTORY, PREDICTION_NEXT_RACE, CONSTRUCTOR_POINTS, TEAMS as MOCK_TEAMS } from '../data/races'
 
 const BASE_URL = 'https://f1-dashboard-api-fscyf2dradhxebh9.centralindia-01.azurewebsites.net'
 
-const TEAM_COLORS = {
-  mercedes: '#27F4D2',
-  ferrari: '#E8002D',
-  mclaren: '#FF8000',
-  red_bull: '#3671C6',
-  alpine: '#0093CC',
-  haas: '#B6BABD',
-  rb: '#6692FF',
-  williams: '#64C4FF',
-  aston_martin: '#229971',
-  sauber: '#52E252',
+function useFetch(url, fallback) {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(url)
+      .then(r => r.json())
+      .then(json => { setData(json); setLoading(false) })
+      .catch(() => { setData(fallback); setLoading(false) })
+  }, [url])
+
+  return { data: data || fallback, loading }
 }
 
 export function useDrivers() {
@@ -24,7 +24,7 @@ export function useDrivers() {
 }
 
 export function useTeams() {
-  return { data: TEAMS, loading: false, error: null }
+  return useFetch(`${BASE_URL}/api/teams/`, [])
 }
 
 export function useTracks() {
@@ -48,31 +48,5 @@ export function usePrediction() {
 }
 
 export function useConstructorPoints() {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch(`${BASE_URL}/api/standings/constructors`, {
-      cache: 'no-store',
-      headers: { 'Cache-Control': 'no-cache' }
-    })
-      .then(r => r.json())
-      .then(json => {
-        console.log('Constructor data received:', json)
-        const formatted = json.map(c => ({
-          team: c.Constructor.name,
-          points: parseInt(c.points),
-          color: TEAM_COLORS[c.Constructor.constructorId] || '#888888'
-        }))
-        console.log('Formatted data:', formatted)
-        setData(formatted)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Fetch error:', err)
-        setLoading(false)
-      })
-  }, [])
-
-  return { data: data || CONSTRUCTOR_POINTS, loading, error: null }
+  return useFetch(`${BASE_URL}/api/standings/constructors`, CONSTRUCTOR_POINTS)
 }
