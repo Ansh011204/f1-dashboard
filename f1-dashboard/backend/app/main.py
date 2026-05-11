@@ -11,7 +11,11 @@ app = FastAPI(
 # CORS — update origins for your Azure Static Web App URL
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://<your-static-web-app>.azurestaticapps.net"],
+    allow_origins=[
+        "https://purple-flower-0e02ed900.7.azurestaticapps.net",
+        "http://localhost:5173"
+    ],
+
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
