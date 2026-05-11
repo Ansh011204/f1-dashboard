@@ -50,26 +50,29 @@ export function usePrediction() {
 export function useConstructorPoints() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${BASE_URL}/api/standings/constructors`)
+    fetch(`${BASE_URL}/api/standings/constructors`, {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
+    })
       .then(r => r.json())
       .then(json => {
+        console.log('Constructor data received:', json)
         const formatted = json.map(c => ({
           team: c.Constructor.name,
           points: parseInt(c.points),
           color: TEAM_COLORS[c.Constructor.constructorId] || '#888888'
         }))
+        console.log('Formatted data:', formatted)
         setData(formatted)
         setLoading(false)
       })
       .catch(err => {
-        setError(err)
+        console.error('Fetch error:', err)
         setLoading(false)
-        setData(CONSTRUCTOR_POINTS)
       })
   }, [])
 
-  return { data: data || CONSTRUCTOR_POINTS, loading, error }
+  return { data: data || CONSTRUCTOR_POINTS, loading, error: null }
 }
