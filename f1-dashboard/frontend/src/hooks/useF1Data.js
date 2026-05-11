@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+const BASE_URL = 'https://f1-dashboard-api-fscyf2dradhxebh9.centralindia-01.azurewebsites.net'
 const fetcher = (url) => fetch(url).then(r => r.json())
 
 export function useDrivers() {
